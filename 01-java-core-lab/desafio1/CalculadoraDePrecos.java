@@ -1,3 +1,5 @@
+package desafio1;
+
 public class CalculadoraDePrecos {
 
     public static double calcularValorComDesconto(String diaDaSemana, double valorBruto){
