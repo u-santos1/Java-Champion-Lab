@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/02-backend-respeito-lab/backend-respeito-lab.iml" filepath="$PROJECT_DIR$/02-backend-respeito-lab/backend-respeito-lab.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java-champion-lab.iml" filepath="$PROJECT_DIR$/.idea/java-champion-lab.iml" />
       <module fileurl="file://$PROJECT_DIR$/01-java-core-lab/java-core-lab.iml" filepath="$PROJECT_DIR$/01-java-core-lab/java-core-lab.iml" />
     </modules>
