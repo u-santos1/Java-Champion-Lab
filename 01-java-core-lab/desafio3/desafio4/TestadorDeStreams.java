@@ -1,11 +1,15 @@
 package desafio3.desafio4;
 
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 // 1. Records no singular, pois representam uma única entidade
 record Venda(String vendedor, String produto, double valor, boolean paga) {}
 record Produto(String nome, double preco) {}
+record Produtos(String nome, double preco, int qtd){}
 
 // 2. Classe com inicial maiúscula
 public class TestadorDeStreams {
@@ -60,5 +64,38 @@ public class TestadorDeStreams {
                 .filter(n -> n.startsWith("A"))
                 .filter(n -> n.length() > 3)
                 .forEach(System.out::println);
+// --- TESTE 5: Transformação com map() ---
+        List<String> maiusculos = nomes.stream()
+                .map(String::toUpperCase)
+                .toList(); // Padrão Java 16+
+        System.out.println("Nomes em maiúsculo: " + maiusculos);
+
+        List<String> nomesDosProdutos = produtos.stream()
+                .map(Produto::nome)
+                .toList(); // Padrão Java 16+
+        System.out.println("Apenas os nomes dos produtos: " + nomesDosProdutos);
+
+        // --- TESTE 6: Trabalhando com tipos primitivos para performance ---
+        List<String> palavras = List.of("Java", "Stream", "Lambda");
+
+        int[] tamanhos = palavras.stream()
+                .mapToInt(String::length)
+                .toArray();
+        System.out.println("Tamanho de cada palavra: " + Arrays.toString(tamanhos));
+
+        // --- TESTE 7: Cenário do Mundo Real (Carrinho de Compras) ---
+        // Alterado para um Record local chamado ItemCarrinho para manter o singular
+        record ItemCarrinho(String nome, double preco, int qtd) {}
+
+        List<ItemCarrinho> carrinho = List.of(
+                new ItemCarrinho("Notebook", 3500.0, 1),
+                new ItemCarrinho("Mouse", 89.0, 2)
+        );
+
+        double totalCarrinho = carrinho.stream()
+                .mapToDouble(p -> p.preco() * p.qtd())
+                .sum();
+        System.out.printf("Total do Carrinho: R$ %.2f%n", totalCarrinho);
+
     }
 }
