@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # ---------------------------------------------
+  # 1. A BASE DE DADOS
+  # ---------------------------------------------
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: respeito_pg_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: backend_respeito_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # ---------------------------------------------
+  # 2. (Spring Boot)
+  # ---------------------------------------------
+  api:
+    build: . # Diz ao Docker para ler o "Dockerfile" que está nesta mesma pasta
+    container_name: respeito_api
+    ports:
+      - "8080:8080" # Expõe a porta do Spring Boot para a tua máquina
+    depends_on:
+      - postgres-db # A API aguarda que a base de dados suba primeiro
+    restart: unless-stopped
+
+volumes:
+  pg_data:
